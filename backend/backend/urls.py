@@ -20,6 +20,11 @@ from django.conf.urls import url
 from django.views.generic.base import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('nested_admin/', include('nested_admin.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include('api.urls')),
+    path('api/rest-auth/', include('rest_auth.urls')),
+    path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^.*', TemplateView.as_view(template_name="home.html"), name="home")
 ]
 #if settings.DEBUG:

@@ -1,1 +1,33 @@
-<p>register works!</p>
+<form [formGroup]="registerForm" novalidate >
+    <div class="form-group">
+        <label>Имя</label>
+        <input class="form-control" name="name" formControlName="userName" />
+          
+        <div class="alert alert-danger"
+            *ngIf="registerForm.controls['userName'].invalid && registerForm.controls['userName'].touched">
+            Не указано имя
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input class="form-control" name="email" formControlName="userEmail" />
+          
+        <div class="alert alert-danger"
+            *ngIf="registerForm.controls['userEmail'].invalid && registerForm.controls['userEmail'].touched">
+            Некорректный email
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Телефон</label>
+        <input class="form-control" name="phone" formControlName="userPhone" />
+        <div class="alert alert-danger"
+            *ngIf="registerForm.controls['userPhone'].invalid && registerForm.controls['userPhone'].touched">
+            Некорректный номер телефона
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-default" [disabled]="registerForm.invalid">
+            Отправить
+        </button>
+    </div>
+</form>

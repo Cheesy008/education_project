@@ -1,14 +1,14 @@
 <div class="nav-bar">
-    <p class="inline"> Angular Quiz</p>
-    <a class="inline" href="#">Профиль</a>
-    <a class="inline" href="#">Тесты</a>
+    <a  class="inline" routerLink=""> Angular Quiz</a>
+    <a class="inline" routerLink="profile">Профиль</a>
+    <a class="inline" routerLink="tests">Тесты</a>
     <ng-container *ngIf="isLogin; else elseTemplate">
-        <a class="inline right" href="#">Пользователь</a>
-        <a class="inline right" href="#">Выход</a>
+        <a class="inline right" routerLink="profile">Пользователь</a>
+        <a class="inline right" routerLink="profile/logout">Выход</a>
     </ng-container>
     <ng-template #elseTemplate>
-        <a class="inline right" href="#">Войти</a>
-        <a class="inline right" href="#">Регистрация</a>
+        <a class="inline right" routerLink="profile/login">Войти</a>
+        <a class="inline right" routerLink="profile/register">Регистрация</a>
     </ng-template>
 </div>
 

@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('api/profile/', include('rest_auth.urls')),
     path('api/profile/registration/', include('rest_auth.registration.urls')),
+url(r'^.*', TemplateView.as_view(template_name="home.html"), name="home")
 ]
 #if settings.DEBUG:
 #urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

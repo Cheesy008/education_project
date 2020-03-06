@@ -23,9 +23,9 @@ urlpatterns = [
     path('nested_admin/', include('nested_admin.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include('api.urls')),
-    path('api/rest-auth/', include('rest_auth.urls')),
-    path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
-    url(r'^.*', TemplateView.as_view(template_name="home.html"), name="home")
+    path('api/profile/', include('rest_auth.urls')),
+    path('api/profile/registration/', include('rest_auth.registration.urls')),
+url(r'^.*', TemplateView.as_view(template_name="home.html"), name="home")
 ]
 #if settings.DEBUG:
 #urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

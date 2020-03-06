@@ -1,33 +1,30 @@
-<form [formGroup]="registerForm" novalidate >
-    <div class="form-group">
-        <label>Имя</label>
-        <input class="form-control" name="name" formControlName="userName" />
-          
-        <div class="alert alert-danger"
-            *ngIf="registerForm.controls['userName'].invalid && registerForm.controls['userName'].touched">
-            Не указано имя
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Email</label>
-        <input class="form-control" name="email" formControlName="userEmail" />
-          
-        <div class="alert alert-danger"
-            *ngIf="registerForm.controls['userEmail'].invalid && registerForm.controls['userEmail'].touched">
-            Некорректный email
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Телефон</label>
-        <input class="form-control" name="phone" formControlName="userPhone" />
-        <div class="alert alert-danger"
-            *ngIf="registerForm.controls['userPhone'].invalid && registerForm.controls['userPhone'].touched">
-            Некорректный номер телефона
-        </div>
-    </div>
-    <div class="form-group">
-        <button class="btn btn-default" [disabled]="registerForm.invalid">
-            Отправить
-        </button>
-    </div>
+<form [formGroup]="registerForm" novalidate>
+    <p>Регистрация</p>
+    <mat-form-field class="half-width" appearance="outline">
+        <mat-label>Введите имя</mat-label>
+        <input placeholder="Имя" matInput>
+    </mat-form-field>
+
+    <mat-form-field class="half-width" appearance="outline">
+        <mat-label>Введите почту</mat-label>
+        <input matInput placeholder="pat@example.com" [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="half-width" appearance="outline">
+        <mat-label>Введите пароль</mat-label>
+        <input placeholder="Пароль" matInput type="password">
+    </mat-form-field>
+    <mat-form-field class="half-width" appearance="outline">
+        <mat-label>Повторите пароль</mat-label>
+        <input placeholder="Пароль" matInput type="password">
+    </mat-form-field>
+    <br>
+        <label>Я: </label>
+        <mat-radio-group>
+            <mat-radio-button value="auto">Ученик</mat-radio-button>
+            <mat-radio-button value="always">Учитель</mat-radio-button>
+        </mat-radio-group>
+    <br>
+    <button mat-stroked-button color=primary>Зарегестрироваться</button>
 </form>

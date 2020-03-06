@@ -8,7 +8,18 @@ from main.models import Quiz
 
 
 class User(AbstractUser):
+    ROLE_STUDENT = 'ST'
+    ROLE_TEACHER = 'TE'
+    ROLE_CHOICES = (
+        (ROLE_STUDENT, 'Student'),
+        (ROLE_TEACHER, 'Teacher')
+    )
     age = models.IntegerField(default=0, null=True, blank=True)
+    role = models.CharField(
+        max_length=2,
+        choices=ROLE_CHOICES,
+        default=ROLE_STUDENT,
+    )
 
 
 class Profile(models.Model):

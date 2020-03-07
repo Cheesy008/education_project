@@ -1,13 +1,13 @@
-import { User } from './../models/user.model';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { RegistrationModel } from 'src/models/registration.model';
+import { LoginModel } from 'src/models/login.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService {
-  authUser: User = new User('admin', 'Admin');
-  constructor() { }
-
-  public isUserAuth() { return User == null; }
-  public getAuthUser(): User { return this.authUser; }
+export abstract class ProfileService {
+  constructor(public http: HttpClient) { }
+  public abstract registration(registrationModel: RegistrationModel);
+  public abstract login(loginModel: LoginModel);
 }

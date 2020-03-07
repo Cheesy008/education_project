@@ -1,3 +1,5 @@
+import { MockProfileService } from './../service/mockService/mockProfileService.service';
+import { ProfileService } from 'src/service/profile.service';
 import { ProfileModule } from './../modules/profile/profile.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -9,9 +11,12 @@ import { NavComponent } from './components/nav/nav.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { HttpClientModule } from '@angular/common/http';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { DataService } from 'src/service/mockService/data.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +24,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     HomeComponent
   ],
   imports: [
+    InMemoryWebApiModule.forRoot(DataService),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -27,9 +33,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     FormsModule,
     MatToolbarModule,
     MatIconModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: ProfileService, useClass: MockProfileService }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

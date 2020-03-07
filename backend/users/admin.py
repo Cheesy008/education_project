@@ -24,7 +24,6 @@ class QuizInline(nested_admin.NestedTabularInline):
 
 @admin.register(Profile)
 class ProfileAdmin(nested_admin.NestedModelAdmin):
-
     exclude = ['quiz', ]
     inlines = [QuizInline, ]
 

@@ -9,10 +9,10 @@ import { User } from 'src/models/user.model';
 })
 export class ProfileComponent implements OnInit {
   user: User;
-  constructor(private profileService: ProfileService) {   }
+  constructor(private profileService: ProfileService) { }
 
   ngOnInit(): void {
-    this.user = this.profileService.getAuthUser();
+    //this.user = this.profileService.getAuthUser();
   }
 
 }

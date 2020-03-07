@@ -1,3 +1,4 @@
+import { HttpProfileService } from './../service/httpService/http-profile.service';
 import { MockProfileService } from './../service/mockService/mockProfileService.service';
 import { ProfileService } from 'src/service/profile.service';
 import { ProfileModule } from './../modules/profile/profile.module';
@@ -36,7 +37,7 @@ import { DataService } from 'src/service/mockService/data.service';
     MatFormFieldModule,
     HttpClientModule
   ],
-  providers: [{ provide: ProfileService, useClass: MockProfileService }],
+  providers: [{ provide: ProfileService, useClass: HttpProfileService }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

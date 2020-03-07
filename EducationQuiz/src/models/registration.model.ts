@@ -1,9 +1,11 @@
 export class RegistrationModel {
 
-    constructor(public firstname: string,
-                public secondname: string,
-                public password: string,
-                public email: string,
-                public role: string) { }
+    constructor(public username: string,
+        public firstname: string,
+        public secondname: string,
+        public password: string,
+        public passwordConfirm: string,
+        public email: string,
+        public role: string) { }
 
 }

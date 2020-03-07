@@ -10,10 +10,10 @@ export class NavComponent implements OnInit {
   isLogin = false;
   constructor(private profileService: ProfileService) { }
   checkAuth() {
-    this.isLogin = this.profileService.isUserAuth();
+    //this.isLogin = this.profileService.isUserAuth();
   }
   ngOnInit(): void {
-    this.checkAuth();
+    //this.checkAuth();
   }
 
 }

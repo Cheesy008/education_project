@@ -17,7 +17,6 @@ class UsersSerializers(serializers.ModelSerializer):
 
 
 class MyRegisterSerializer(RegisterSerializer):
-    username = None
     first_name = serializers.CharField(required=True, write_only=True)
     last_name = serializers.CharField(required=True, write_only=True)
     role = serializers.ChoiceField(choices=get_user_model().ROLE_CHOICES, write_only=True, required=True)
@@ -26,6 +25,4 @@ class MyRegisterSerializer(RegisterSerializer):
         user.first_name = self.validated_data.get('first_name', '')
         user.last_name = self.validated_data.get('last_name', '')
         user.role = self.validated_data.get('role', '')
-        username = f"{user.first_name} {user.last_name}"
-        user.username = username
         user.save(update_fields=['username', 'first_name', 'last_name', 'role'])

@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
-from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +26,7 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('api/profile/', include('rest_auth.urls')),
     path('api/profile/registration/', include('rest_auth.registration.urls')),
+    path('api/profile/login/', include('rest_auth.registration.urls')),
 ]
 
 if settings.DEBUG:

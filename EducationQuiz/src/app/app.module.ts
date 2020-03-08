@@ -1,6 +1,5 @@
 import { LoadingComponent } from './components/loading/loading.component';
 import { HttpProfileService } from './../service/httpService/http-profile.service';
-import { MockProfileService } from './../service/mockService/mockProfileService.service';
 import { ProfileService } from 'src/service/profile.service';
 import { ProfileModule } from './../modules/profile/profile.module';
 import { BrowserModule } from '@angular/platform-browser';

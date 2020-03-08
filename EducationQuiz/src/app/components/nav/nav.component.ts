@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/service/profile.service';
+import { User } from 'src/models/user.model';
 
 @Component({
   selector: 'app-nav',
@@ -7,13 +8,12 @@ import { ProfileService } from 'src/service/profile.service';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  isLogin = false;
+  user: User = null;
   constructor(private profileService: ProfileService) { }
-  checkAuth() {
-    //this.isLogin = this.profileService.isUserAuth();
-  }
   ngOnInit(): void {
-    //this.checkAuth();
+    this.profileService.userSubject.subscribe((data) => {
+      this.user = data;
+    });
   }
 
 }

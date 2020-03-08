@@ -1,1 +1,23 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="login()" validate>
+    <p>Авторизация</p>
+    <mat-form-field class="half-width" appearance="outline">
+        <mat-label>Введите почту</mat-label>
+        <input matInput placeholder="mail@example.com" formControlName="еmail" required>
+        <mat-error *ngIf="loginForm.controls['еmail'].invalid">
+            <p>Введите Вашу почту</p>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="half-width" appearance="outline">
+        <mat-label>Введите пароль</mat-label>
+        <input matInput placeholder="Ваш пароль" formControlName="password" type="password" required>
+        <mat-error *ngIf="loginForm.controls['password'].invalid">
+            <p>Введите Ваш пароль</p>
+        </mat-error>
+    </mat-form-field>
+
+    <br>
+    <br>
+    <button mat-stroked-button color=primary>Войти</button>
+</form>
+<app-loading [show]="showLoading"></app-loading>

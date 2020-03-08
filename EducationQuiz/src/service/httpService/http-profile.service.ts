@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
+
 export class HttpProfileService implements ProfileService {
   private baseUrl = 'http://127.0.0.1:8000/api/';
   private format = '?format=JSON';
@@ -15,17 +16,16 @@ export class HttpProfileService implements ProfileService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     const body = {
+      username: model.username,
       email: model.email,
       password1: model.password,
-      password2: model.passwordConfirm,
+      password2: model.password,
       first_name: model.firstname,
       last_name: model.secondname,
       role: model.role
     };
     console.log(body);
-    return this.http.post(this.baseUrl + 'profile/registration', body, {
-      headers: new HttpHeaders().set('Content-type', 'application/json'),
-    });
+    return this.http.post('api/profile/registration/', body);
   } public login(loginModel: LoginModel) {
 
   }

@@ -12,7 +12,7 @@ class UsersSerializers(serializers.ModelSerializer):
             'id',
             'username',
             'age',
-            'role',
+            'get_role_display',
         )
 
 

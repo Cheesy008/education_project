@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm" (ngSubmit)="registration()"  validate>
+<form [formGroup]="registerForm" (ngSubmit)="registration()" validate>
     <p>Регистрация</p>
     <mat-form-field class="half-width" appearance="outline">
         <mat-label>Введите имя</mat-label>
@@ -39,11 +39,51 @@
     </mat-form-field>
     <br>
     <label>Я: </label>
-        <mat-radio-group formControlName="role">
-            <mat-radio-button value="student" selected>Ученик</mat-radio-button>
-            <mat-radio-button value="teacher">Учитель</mat-radio-button>
-        </mat-radio-group>
+    <mat-radio-group formControlName="role">
+        <mat-radio-button value="ST" selected>Ученик</mat-radio-button>
+        <mat-radio-button value="TE">Учитель</mat-radio-button>
+    </mat-radio-group>
     <br>
     <br>
     <button mat-stroked-button color=primary>Зарегестрироваться</button>
+
+    <div *ngIf="isError">
+        <div *ngIf="errors.username">
+            <mat-error *ngFor="let error of errors.username">
+                <p>{{error}}</p>
+            </mat-error>
+        </div>
+        <div *ngIf="errors.email">
+            <mat-error *ngFor="let error of errors.email">
+                <p>{{error}}</p>
+            </mat-error>
+        </div>
+        <div *ngIf="errors.first_name">
+            <mat-error *ngFor="let error of errors.first_name">
+                <p>{{error}}</p>
+            </mat-error>
+        </div>
+        <div *ngIf="errors.last_name">
+            <mat-error *ngFor="let error of errors.last_name">
+                <p>{{error}}</p>
+            </mat-error>
+        </div>
+        <div *ngIf="errors.password1">
+            <mat-error *ngFor="let error of errors.password1">
+                <p>{{error}}</p>
+            </mat-error>
+        </div>
+        <div *ngIf="errors.password2">
+            <mat-error *ngFor="let error of errors.password2">
+                <p>{{error}}</p>
+            </mat-error>
+        </div>
+        <div *ngIf="errors.role">
+            <mat-error *ngFor="let error of errors.role">
+                <p>{{error}}</p>
+            </mat-error>
+        </div>
+    </div>
 </form>
+
+<app-loading [show]="showLoading"></app-loading>

@@ -1,3 +1,4 @@
+import { LoadingComponent } from './components/loading/loading.component';
 import { HttpProfileService } from './../service/httpService/http-profile.service';
 import { MockProfileService } from './../service/mockService/mockProfileService.service';
 import { ProfileService } from 'src/service/profile.service';
@@ -16,27 +17,27 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { DataService } from 'src/service/mockService/data.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    HomeComponent
+    HomeComponent,
+    LoadingComponent
   ],
   imports: [
-    InMemoryWebApiModule.forRoot(DataService),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ProfileModule,
     ReactiveFormsModule,
     FormsModule,
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
+  exports: [LoadingComponent],
   providers: [{ provide: ProfileService, useClass: HttpProfileService }],
   bootstrap: [AppComponent]
 })

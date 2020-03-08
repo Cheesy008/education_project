@@ -1,39 +1,30 @@
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets
-from rest_framework.decorators import api_view
-from rest_framework import generics
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 
-from .serializers import UsersSerializers
-
-# class UserViewSet(viewsets.ModelViewSet):
-#     queryset = get_user_model().objects.all()
-#     serializer_class = UsersSerializers
-#
-#     @action(methods=['get'], detail=True, url_path='profile/current_user/', url_name='profile/current_user/')
-#     def get_object(self):
-#         pk = self.kwargs.get('pk')
-#         if pk == 'current':
-#             return self.request.user
-#
-#         return super(UserViewSet, self).get_object()
-#
+from .serializers import UsersSerializers, UserDetailSerializer
 
 
-class UserList(generics.ListCreateAPIView): # new
+class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
-    serializer_class = UsersSerializers
+    serializer_classes = {
+        'list': UsersSerializers,
+        'retrieve': UserDetailSerializer,
+    }
+    default_serializer_class = UsersSerializers
+
+    def get_serializer_class(self):
+        return self.serializer_classes.get(self.action, self.default_serializer_class)
 
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = get_user_model().objects.all()
-    serializer_class = UsersSerializers
+class CurrentUserView(APIView):
+    permission_classes = (IsAuthenticated,)
 
-
-@api_view(['GET'])
-def get_current_user(request):
-    serializer = UsersSerializers(request.user)
-    return Response(serializer.data)
+    def get(self, request):
+        serializer = UserDetailSerializer(request.user)
+        return Response(serializer.data)
 
 
 

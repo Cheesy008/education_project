@@ -16,6 +16,7 @@ class User(AbstractUser):
     role = models.CharField(
         max_length=2,
         choices=ROLE_CHOICES,
+        default=None,
     )
 
 

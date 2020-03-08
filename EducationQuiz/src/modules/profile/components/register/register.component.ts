@@ -52,6 +52,7 @@ export class RegisterComponent implements OnInit {
       this.profileService.updateProfile();
       this.router.navigate(['/profile']);
     }, (error) => {
+      this.profileService.updateProfile();
       this.showLoading = false;
       this.errors = error.error;
       this.isError = true;

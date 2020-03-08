@@ -14,9 +14,7 @@ export class HttpProfileService implements ProfileService {
 
   public authUser: User;
   public userSubject: Subject<User>;
-  public: any;
-  private baseUrl = 'http://127.0.0.1:8000/api/';
-  private format = '?format=JSON';
+
   constructor(public http: HttpClient) { }
   public registration(model: RegistrationModel) {
     const headers = new Headers();

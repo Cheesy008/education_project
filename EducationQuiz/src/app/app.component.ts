@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
-import { Tile } from '@angular/material/grid-list/tile-coordinator';
+import { ProfileService } from 'src/service/profile.service';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'EducationQuiz';
-  tiles = [
-    {text: 'Tile 1', cols: 2, rows: 1 ,border: '3px double purple'},
-    {text: 'Tile 2', cols: 2, rows: 1 ,border: '3px double red'},
-    {text: 'Tile 3', cols: 2, rows: 1 ,border: '3px double skyblue'},
-    {text: 'Tile 4', cols: 2, rows: 1 ,border: '3px double yellow'},
-    ];
+export class AppComponent implements OnInit {
+  @Input() csrtToken: string;
+  constructor(private profileService: ProfileService) {
+  }
+  ngOnInit(): void {
+    this.profileService.csrtToken = this.csrtToken;
+    this.profileService.updateProfile();
+  }
 }

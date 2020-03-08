@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   errors: RegistrationErrorsModel;
   constructor(private formBuilder: FormBuilder, private profileService: ProfileService, private router: Router) {
     this.registerForm = this.formBuilder.group({
+      username: new FormControl('Dima', Validators.required),
       firstname: new FormControl('Дмитрий', Validators.required),
       secondname: new FormControl('Павлов', Validators.required),
       еmail: new FormControl('test@test.com', [
@@ -37,7 +38,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void { }
   registration() {
-    const model = new RegistrationModel(this.registerForm.value.firstname + this.registerForm.value.secondname,
+    const model = new RegistrationModel(this.registerForm.value.username,
       this.registerForm.value.firstname,
       this.registerForm.value.secondname,
       this.registerForm.value.password,

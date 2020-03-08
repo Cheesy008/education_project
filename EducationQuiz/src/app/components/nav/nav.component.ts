@@ -12,8 +12,10 @@ export class NavComponent implements OnInit {
   constructor(private profileService: ProfileService) { }
   ngOnInit(): void {
     this.profileService.userSubject.subscribe((data) => {
+      console.log('nav');
       this.user = data;
     });
+    this.profileService.updateProfile();
   }
 
 }

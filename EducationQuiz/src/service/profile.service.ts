@@ -9,9 +9,13 @@ import { User } from 'src/models/user.model';
   providedIn: 'root'
 })
 export abstract class ProfileService {
+  public csrtToken: string;
+
   public authUser: User = null;
   public userSubject: Subject<User> = new Subject<User>();
+
   constructor(public http: HttpClient) { }
+
   public abstract registration(registrationModel: RegistrationModel): Observable<any>;
   public abstract login(loginModel: LoginModel);
   public abstract updateProfile(): void;

@@ -8,6 +8,7 @@
         </mat-error>
     </mat-form-field>
     <br>
+
     <mat-form-field class="half-width" appearance="outline">
         <mat-label>Введите пароль</mat-label>
         <input matInput placeholder="Ваш пароль" formControlName="password" type="password" required>
@@ -15,9 +16,19 @@
             <p>Введите Ваш пароль</p>
         </mat-error>
     </mat-form-field>
-
-    <br>
-    <br>
     <button mat-stroked-button color=primary>Войти</button>
+    <div *ngIf="isError">
+        <div *ngIf="errors.email">
+            <mat-error *ngFor="let error of errors.email">
+                <p>{{error}}</p>
+            </mat-error>
+        </div>
+        <div *ngIf="errors.non_field_errors">
+            <mat-error *ngFor="let error of errors.non_field_errors">
+                <p>{{error}}</p>
+            </mat-error>
+        </div>
+    </div>
+
 </form>
 <app-loading [show]="showLoading"></app-loading>

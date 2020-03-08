@@ -12,13 +12,14 @@ import { Subject, Observable } from 'rxjs';
 
 export class HttpProfileService implements ProfileService {
 
+  public csrtToken: string;
+
   public authUser: User;
-  public userSubject: Subject<User>;
+  public userSubject: Subject<User> = new Subject<User>();
 
   constructor(public http: HttpClient) { }
+
   public registration(model: RegistrationModel) {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
     const body = {
       username: model.username,
       email: model.email,
@@ -28,17 +29,23 @@ export class HttpProfileService implements ProfileService {
       last_name: model.secondname,
       role: model.role
     };
-    console.log(body);
     return this.http.post('api/profile/registration/', body);
   }
-  public login(loginModel: LoginModel) {
-
+  public login(model: LoginModel) {
+    const body = {
+      email: model.email,
+      password: model.password
+    };
+    return this.http.post('api/profile/login/', body);
   }
   public updateProfile(): void {
-    this.http.get('api/profile/').subscribe((data) => {
-      this.authUser = data as User;
-      this.userSubject.next(data as User);
-    }, (error) => { });
+    this.http.get<User>('api/profile/').subscribe((data) => {
+      this.authUser = data;
+      this.userSubject.next(data);
+    }, (error) => {
+      this.authUser = null;
+      this.userSubject.next(null);
+    });
   }
 
 }

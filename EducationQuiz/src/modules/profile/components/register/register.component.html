@@ -1,6 +1,14 @@
 <form [formGroup]="registerForm" (ngSubmit)="registration()" validate>
     <p>Регистрация</p>
     <mat-form-field class="half-width" appearance="outline">
+        <mat-label>Введите прозвище</mat-label>
+        <input matInput placeholder="Ваше прозвище" formControlName="username" required>
+        <mat-error *ngIf="registerForm.controls['username'].invalid">
+            <p>Введите Ваше прозвище</p>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="half-width" appearance="outline">
         <mat-label>Введите имя</mat-label>
         <input matInput placeholder="Ваше имя" formControlName="firstname" required>
         <mat-error *ngIf="registerForm.controls['firstname'].invalid">

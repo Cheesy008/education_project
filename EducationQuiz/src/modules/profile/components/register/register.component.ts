@@ -49,8 +49,10 @@ export class RegisterComponent implements OnInit {
     this.profileService.registration(model).subscribe((data) => {
       this.showLoading = false;
       this.isError = false;
+      this.profileService.updateProfile();
       this.router.navigate(['/profile']);
     }, (error) => {
+      this.profileService.updateProfile();
       this.showLoading = false;
       this.errors = error.error;
       this.isError = true;

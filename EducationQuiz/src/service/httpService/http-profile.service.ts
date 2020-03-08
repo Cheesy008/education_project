@@ -3,12 +3,18 @@ import { ProfileService } from '../profile.service';
 import { RegistrationModel } from 'src/models/registration.model';
 import { LoginModel } from 'src/models/login.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from 'src/models/user.model';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class HttpProfileService implements ProfileService {
+
+  public authUser: User;
+  public userSubject: Subject<User>;
+  public: any;
   private baseUrl = 'http://127.0.0.1:8000/api/';
   private format = '?format=JSON';
   constructor(public http: HttpClient) { }
@@ -26,9 +32,15 @@ export class HttpProfileService implements ProfileService {
     };
     console.log(body);
     return this.http.post('api/profile/registration/', body);
-  } public login(loginModel: LoginModel) {
+  }
+  public login(loginModel: LoginModel) {
 
   }
-
+  public updateProfile(): void {
+    this.http.get('api/profile/').subscribe((data) => {
+      this.authUser = data as User;
+      this.userSubject.next(data as User);
+    }, (error) => { });
+  }
 
 }

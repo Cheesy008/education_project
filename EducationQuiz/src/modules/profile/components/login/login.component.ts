@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   errors: LoginErrorsModel;
   constructor(private formBuilder: FormBuilder, private profileService: ProfileService, private router: Router) {
     this.loginForm = this.formBuilder.group({
-      еmail: new FormControl('test@test.com', [
+      email: new FormControl('test@example.com', [
         Validators.required,
         Validators.email
       ]),
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { }
   login() {
     const model = new LoginModel(this.loginForm.value.email, this.loginForm.value.password);
-
+    console.log(model);
     this.isError = false;
     this.showLoading = true;
 

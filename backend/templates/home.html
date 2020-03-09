@@ -12,17 +12,16 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'ang/styles.css' %}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   {% csrf_token %}
-  <script type="text/javascript">
-    //var csrftoken = document.getElementsByName(csrfmiddlewaretoken).val()
-    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-    console.log(csrftoken);
-  </script>
+
 </head>
 
-<body>
-  <app-root [crstToken]="csrftoken">Loading</app-root>
+<body id="body">
+  <script type="text/javascript">
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    $(document.body).append('<app-root csrftoken="' + csrftoken + '">Loading</app-root>'); 
+  </script>
   <script type="text/javascript" src="{% static 'ang/runtime.js' %}"></script>
   <script type="text/javascript" src="{% static 'ang/polyfills.js' %}"></script>
   <script type="text/javascript" src="{% static 'ang/main.js' %}"></script>

@@ -1,3 +1,4 @@
+import { TokenService } from './../service/token.service';
 import { LoadingComponent } from './components/loading/loading.component';
 import { HttpProfileService } from './../service/httpService/http-profile.service';
 import { ProfileService } from 'src/service/profile.service';
@@ -37,7 +38,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule
   ],
   exports: [LoadingComponent],
-  providers: [{ provide: ProfileService, useClass: HttpProfileService }],
+  providers: [{ provide: ProfileService, useClass: HttpProfileService }, { provide: TokenService }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

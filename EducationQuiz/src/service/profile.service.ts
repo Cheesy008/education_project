@@ -18,5 +18,6 @@ export abstract class ProfileService {
 
   public abstract registration(registrationModel: RegistrationModel): Observable<any>;
   public abstract login(loginModel: LoginModel);
+  public abstract logout();
   public abstract updateProfile(): void;
 }

@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
-  public static token: string;
-  public getRequestOptions() {
-    let headers = new Headers();
-    headers.append('csrftoken', 'token');
-
-    let options = new RequestOptions({ headers: headers });
+  public token: string;
+  public getHeaders() {
+    const headers = new HttpHeaders();
+    headers.append('csrftoken', this.token);
+    const options = {
+      headers: headers
+    };
+    return options;
   }
 }

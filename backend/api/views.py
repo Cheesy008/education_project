@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from .serializers import UsersSerializers, UserDetailSerializer
 
 
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_classes = {

@@ -2,7 +2,7 @@
     <a class="inline header" routerLink=""> Angular Quiz</a>
     <a class="inline text" routerLink="profile">Профиль</a>
     <a class="inline text" routerLink="tests">Тесты</a>
-    <a class="inline text" routerLink="users">ПОльзователи</a>
+    <!-- <a class="inline text" routerLink="users">Пользователи</a> -->
     <span class="spacer"></span>
     <ng-container *ngIf="user; else elseTemplate">
         <a class="inline right text" routerLink="profile">{{user.username}}</a>
@@ -12,6 +12,5 @@
         <a class="inline right text" routerLink="profile/login">Войти</a>
         <a class="inline right text" routerLink="profile/register">Регистрация</a>
     </ng-template>
-    <a class="inline right text" routerLink="profile/login">Войти</a>
-    <a class="inline right text" routerLink="profile/register">Регистрация</a>
+
 </mat-toolbar>

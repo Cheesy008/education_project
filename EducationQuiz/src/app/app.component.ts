@@ -1,5 +1,6 @@
 import { ProfileService } from 'src/service/profile.service';
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { TokenService } from 'src/service/token.service';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +8,13 @@ import { Component, OnInit, Input, ElementRef } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  @Input() csrtToken: string;
-  constructor(private profileService: ProfileService, private _elementRef: ElementRef) {
+  constructor(private tokenService: TokenService, private _elementRef: ElementRef) {
     const native = this._elementRef.nativeElement;
     const test = native.getAttribute("csrftoken");
-    this.csrtToken = test;
+    this.tokenService.token = test;
+    console.log('token: ' + test);
   }
   ngOnInit(): void {
-    console.log('d' + this.csrtToken);
-    this.profileService.csrtToken = this.csrtToken;
-    this.profileService.updateProfile();
+
   }
 }

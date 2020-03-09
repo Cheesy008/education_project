@@ -20,6 +20,7 @@ export class NavComponent implements OnInit {
   }
   logout() {
     this.profileService.logout().subscribe((data) => {
+      console.log(data);
       this.profileService.updateProfile();
       this.router.navigate(['/']);
     }, (error) => {

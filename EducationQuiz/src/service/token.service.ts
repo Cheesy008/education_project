@@ -7,10 +7,12 @@ import { HttpHeaders } from '@angular/common/http';
 export class TokenService {
   public token: string;
   public getHeaders() {
-    const headers = new HttpHeaders();
-    headers.append('csrftoken', this.token);
+    const httpHeaders = new HttpHeaders({
+      'X-CSRFToken': this.token
+    });
+    console.log('headers: ' + httpHeaders.keys());
     const options = {
-      headers: headers
+      headers: httpHeaders
     };
     return options;
   }

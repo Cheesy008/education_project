@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ProfileService } from 'src/service/profile.service';
 import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
     this.showLoading = true;
 
     this.profileService.login(model).subscribe((data) => {
+
       this.showLoading = false;
       this.isError = false;
       this.profileService.updateProfile();

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProfileService } from '../profile.service';
 import { RegistrationModel } from 'src/models/registration.model';
 import { LoginModel } from 'src/models/login.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { User } from 'src/models/user.model';
 import { Subject, Observable } from 'rxjs';
 import { TokenService } from '../token.service';
@@ -12,9 +12,6 @@ import { TokenService } from '../token.service';
 })
 
 export class HttpProfileService implements ProfileService {
-
-
-  public csrtToken: string;
 
   public authUser: User;
   public userSubject: Subject<User> = new Subject<User>();
@@ -33,15 +30,18 @@ export class HttpProfileService implements ProfileService {
     };
     return this.http.post('api/profile/registration/', body, this.token.getHeaders());
   }
-  public login(model: LoginModel) {
+  public login(model: LoginModel): Observable<HttpResponse<any>> {
     const body = {
       email: model.email,
       password: model.password
     };
-    console.log(body);
-    return this.http.post('api/profile/login/', body, this.token.getHeaders());
+    return this.http.post<any>('api/profile/login/', body, this.token.getHeaders()).pipe(data => {
+      console.log(data);
+      return data;
+    });
   }
   public logout() {
+
     return this.http.post('api/profile/logout/', null, this.token.getHeaders());
   }
   public updateProfile(): void {

@@ -13,6 +13,7 @@ django-rest-auth = "*"
 django-allauth = "*"
 django-nested-admin = "*"
 psycopg2 = "*"
+django-rest-framework-braces = "*"
 
 [requires]
 python_version = "3.8"

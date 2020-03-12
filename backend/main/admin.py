@@ -24,6 +24,7 @@ class QuestionInline(nested_admin.NestedTabularInline):
 
 @admin.register(Quiz)
 class QuizAdmin(nested_admin.NestedModelAdmin):
+    list_display = ['title', 'owner',]
     inlines = [QuestionInline, ]
 
 

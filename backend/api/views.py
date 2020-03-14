@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
-from drf_writable_nested import NestedCreateMixin, NestedUpdateMixin
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
-from rest_framework.decorators import api_view, permission_classes, action
+from rest_framework.decorators import action
+from rest_framework.filters import OrderingFilter
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import status
 
@@ -18,6 +19,7 @@ from main.models import (
     Answer,
     Question
 )
+from .filters import QuizFilter
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -101,6 +103,9 @@ class QuestionViewSet(viewsets.ModelViewSet):
 class QuizViewSet(viewsets.ModelViewSet):
     queryset = Quiz.objects.all()
     serializer_class = QuizSerializer
+    filter_backends = (DjangoFilterBackend, OrderingFilter)
+    ordering = ('created',)
+    filterset_class = QuizFilter
 
     def perform_create(self, serializer):
         req = serializer.context['request']

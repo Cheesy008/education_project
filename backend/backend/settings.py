@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_auth.registration',
-    'drf_writable_nested',
 
     'main.apps.MainConfig',
     'users.apps.UsersConfig',

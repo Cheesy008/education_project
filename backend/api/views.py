@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from drf_writable_nested import NestedCreateMixin, NestedUpdateMixin
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.response import Response
@@ -9,7 +10,6 @@ from rest_framework import status
 from .serializers import UsersSerializers, UserDetailSerializer
 from .serializers import (
     QuizSerializer,
-    QuizDetailSerializer,
     QuestionSerializer,
     AnswerSerializer,
 )
@@ -97,46 +97,11 @@ class QuestionViewSet(viewsets.ModelViewSet):
         serializer = AnswerSerializer(answers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # @action(methods=['get', 'post'], detail=True)
-    # def create_answer(self, request, id=None):
-    #     question = self.get_object()
-    #     data = request.data
-    #     data['question'] = question.id
-    #     serializer = AnswerSerializer(data=data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class QuizViewSet(viewsets.ModelViewSet):
     queryset = Quiz.objects.all()
     serializer_class = QuizSerializer
-    detail_serializer_class = QuizDetailSerializer
-    lookup_field = 'id'
 
-    def get_serializer_class(self):
-        if self.action == 'retrieve':
-            if hasattr(self, 'detail_serializer_class'):
-                return self.detail_serializer_class
-        return super().get_serializer_class()
-
-    # def retrieve(self, request, *args, **kwargs):
-    #     quiz = self.get_object()
-    #     questions = Question.objects.filter(quiz=quiz)
-    #     serializer = QuestionSerializer(questions, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-
-    # def create(self, request, *args, **kwargs):
-    #     message = request.data.pop('message_type')
-    #
-    #     if message == 'Create':
-    #         event = request.data.pop('event')
-    #         questions = event.pop('question')[0]
-    #         answers = event.pop('answer')
-    #         questions = Question.objects.create(**questions)
-    #
-    #         for answer in answers:
-    #             questions.answer_set.create(**answer)
-    #         quiz = Quiz.objects.create(**event, )
-
+    def perform_create(self, serializer):
+        req = serializer.context['request']
+        serializer.save(owner=req.user)

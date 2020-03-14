@@ -57,7 +57,7 @@ class AnswerSerializer(serializers.ModelSerializer):
         read_only_fields = ('question',)
 
 
-class QuestionSerializer(serializers.ModelSerializer):
+class QuestionSerializer(WritableNestedModelSerializer):
     answers = AnswerSerializer(many=True)
 
     class Meta:
@@ -70,84 +70,31 @@ class QuestionSerializer(serializers.ModelSerializer):
             'answers',
         )
 
-    def create(self, validated_data):
-        answers = validated_data.pop('answers')
-        question = Question.objects.create(**validated_data)
-        for answer in answers:
-            Answer.objects.create(**answer, question=question)
-        return question
 
-    # def update(self, instance, validated_data):
-    #     answers = validated_data.pop('answers')
-    #     instance.question_title = validated_data.get('question_title', instance.question_title)
-    #     instance.save()
-    #     keep_answers = []
-    #     existing_ids = [a.id for a in instance.answers]
-    #     for answer in answers:
-    #         if 'id' in answer.keys():
-    #             if Answer.objects.filter(id=answer['id']).exists():
-    #                 a = Answer.objects.get(id=answer['id'])
-    #                 a.answer_text = answer.get('answer_text', a.answer_text)
-    #                 a.save()
-    #                 keep_answers.append(a.id)
-    #             else:
-    #                 continue
-    #         else:
-    #             a = Answer.objects.create(**answer, question=instance)
-    #             keep_answers.append(a.id)
-    #
-    #     for answer in instance.answers:
-    #         if answer.id not in keep_answers:
-    #             answer.delete()
-    #
-    #     return instance
-
-    def update(self, instance, validated_data):
-        instance.question_title = validated_data.get('question_title', instance.question_title)
-        answers = validated_data.pop('answers')
-        for answer in answers:
-            a = Answer.objects.get(id=answer['id'])
-            a.answer_text = validated_data.get('answer_text', a.answer_text)
-            a.is_correct = validated_data.get('is_correct', a.is_correct)
-            a.save()
-        instance.save()
-        return instance
-
-
-class QuizSerializer(serializers.ModelSerializer):
-    owner = serializers.SerializerMethodField(read_only=True)
+class QuizSerializer(WritableNestedModelSerializer):
+    owner = UserDetailSerializer(read_only=True)
+    owner_id = serializers.SerializerMethodField()
+    questions = QuestionSerializer(many=True)
 
     class Meta:
         model = Quiz
         fields = (
             'id',
-            'owner',
             'title',
-            'questions_count',
-            'created',
-        )
-
-    def get_owner(self, obj):
-        return obj.owner.user.username
-
-
-class QuizDetailSerializer(WritableNestedModelSerializer):
-    answer = AnswerSerializer(many=True, read_only=True)
-    question = QuestionSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Quiz
-        fields = (
-            'id',
             'owner',
-            'title',
+            'owner_id',
             'questions_count',
             'description',
             'test_completed',
             'created',
-            'question',
-            'answer',
+            'questions',
         )
+        read_only_fields = ('questions_count', 'test_completed', )
+
+    def get_owner_id(self, obj):
+        owner_id = self.context['request'].user.id
+        return owner_id
+
 
 
 

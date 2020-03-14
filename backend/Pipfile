@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "==3.0.2"
+django = "==2.2"
 djangorestframework = "*"
 django-cors-headers = "*"
 django-rest-auth = "*"
@@ -14,6 +14,7 @@ django-allauth = "*"
 django-nested-admin = "*"
 psycopg2 = "*"
 django-rest-framework-braces = "*"
+drf-writable-nested = "*"
 
 [requires]
 python_version = "3.8"

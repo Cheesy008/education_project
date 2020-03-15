@@ -1,3 +1,5 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { QuizzesModule } from './../modules/quizzes/quizzes.module';
 import { TokenService } from './../service/token.service';
 import { LoadingComponent } from './components/loading/loading.component';
 import { HttpProfileService } from './../service/httpService/http-profile.service';
@@ -34,11 +36,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
+    MatCheckboxModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   exports: [LoadingComponent],
-  providers: [{ provide: ProfileService, useClass: HttpProfileService }, { provide: TokenService }],
+  providers: [{ provide: ProfileService, useClass: HttpProfileService },
+  { provide: TokenService },
+  { provide: Quizservice }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

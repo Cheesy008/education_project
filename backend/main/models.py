@@ -1,24 +1,20 @@
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.contrib.auth import get_user_model
 
 from users.models import Profile
 
 
 class Quiz(models.Model):
     owner = models.ForeignKey(
-        Profile,
+        get_user_model(),
         on_delete=models.PROTECT,
         related_name='quizzes',
-        null=True,
-        blank=True,
         verbose_name='Создатель',
     )
     title = models.CharField(max_length=100, verbose_name='Название')
-    questions_count = models.PositiveSmallIntegerField(default=0, verbose_name='Количество вопросов')
+    questions_count = models.PositiveSmallIntegerField(default=0, verbose_name='Количество вопросов', null=True, blank=True)
     description = models.TextField(verbose_name='Описание теста')
-    score = models.PositiveSmallIntegerField(default=0, verbose_name='Количество баллов')
-    completed = models.BooleanField(default=False, verbose_name='Завершен')
+    test_completed = models.BooleanField(default=False, verbose_name='Завершено создание теста')
     created = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата создания')
 
     def __str__(self):
@@ -30,7 +26,8 @@ class Quiz(models.Model):
 
 
 class Question(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, verbose_name='Тест')
+    index = models.SmallIntegerField(blank=True, null=True, default=0)
+    quiz = models.ForeignKey(Quiz, related_name='questions', on_delete=models.CASCADE, verbose_name='Тест')
     question_title = models.TextField(verbose_name='Текст вопроса')
 
     def __str__(self):
@@ -40,10 +37,14 @@ class Question(models.Model):
         verbose_name = 'Вопрос'
         verbose_name_plural = 'Вопросы'
 
+    @property
+    def answers(self):
+        return self.answers.all()
+
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, verbose_name='Текст вопроса')
-    answer_text = models.TextField(verbose_name='Текст вопроса')
+    question = models.ForeignKey(Question,related_name='answers', on_delete=models.CASCADE, verbose_name='Текст вопроса')
+    answer_text = models.TextField(verbose_name='Текст ответа')
     is_correct = models.BooleanField(default=False, verbose_name='Правильный')
 
     def __str__(self):
@@ -97,13 +98,4 @@ class QuizResponse(models.Model):
         return self.answer
 
 
-@receiver(post_save, sender=Quiz)
-def set_default_quiz(sender, instance, created, **kwargs):
-    quiz = Quiz.objects.filter(id=instance.id)
-    quiz.update(questions_count=instance.question_set.filter(quiz=instance.pk).count())
 
-
-@receiver(post_save, sender=Question)
-def set_default(sender, instance, created, **kwargs):
-    quiz = Quiz.objects.filter(id=instance.quiz.id)
-    quiz.update(questions_count=instance.quiz.question_set.filter(quiz=instance.quiz.pk).count())

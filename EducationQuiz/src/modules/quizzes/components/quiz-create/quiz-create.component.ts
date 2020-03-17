@@ -2,6 +2,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { QuizCreate } from './../../../../models/quiz.model';
 import { ProfileService } from 'src/service/profile.service';
 import { Component, OnInit } from '@angular/core';
+import { QuizService } from 'src/service/quiz.service';
 
 @Component({
   selector: 'app-quiz-create',
@@ -11,8 +12,8 @@ import { Component, OnInit } from '@angular/core';
 export class QuizCreateComponent implements OnInit {
   quiz: QuizCreate;
   public createForm: FormGroup;
-  constructor(private profileServie: ProfileService, private formBuilder: FormBuilder) {
-    this.quiz = new QuizCreate(this.profileServie.authUser);
+  constructor(private profileServie: ProfileService, private formBuilder: FormBuilder, private quizService: QuizService) {
+    this.quiz = new QuizCreate();
     this.createForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -21,5 +22,11 @@ export class QuizCreateComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  create() {
+    this.quiz.description = this.createForm.value.description;
+    this.quiz.title = this.createForm.value.title;
+    this.quizService.createQuiz(this.quiz).subscribe((data) => {
+      console.log(data);
+    });
+  }
 }

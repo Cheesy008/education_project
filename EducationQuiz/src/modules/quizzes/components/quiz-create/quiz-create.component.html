@@ -1,20 +1,20 @@
-<form [formGroup]="createForm" validate>
-    <p>Создание теста</p>
-    <mat-form-field appearance="outline">
-        <mat-label>Введите название</mat-label>
-        <input matInput placeholder="Название теста" formControlName="title" required>
-        <mat-error *ngIf="createForm.controls['title'].invalid">
-            <p>Заполните это поле</p>
-        </mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline">
-        <mat-label>Введите описание</mat-label>
-        <textarea matInput placeholder="Описание теста" formControlName="description" required></textarea>
-        <mat-error *ngIf="createForm.controls['description'].invalid">
-            <p>Заполните это поле</p>
-        </mat-error>
-    </mat-form-field>
-    <br>
-    <button mat-stroked-button color=primary>Создать</button>
+<form [formGroup]="createForm" (ngSubmit)="create()" validate>
+  <p>Создание теста</p>
+  <mat-form-field appearance="outline">
+    <mat-label>Введите название</mat-label>
+    <input matInput placeholder="Название теста" formControlName="title" required>
+    <mat-error *ngIf="createForm.controls['title'].invalid">
+      <p>Заполните это поле</p>
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="outline">
+    <mat-label>Введите описание</mat-label>
+    <textarea matInput placeholder="Описание теста" formControlName="description" required></textarea>
+    <mat-error *ngIf="createForm.controls['description'].invalid">
+      <p>Заполните это поле</p>
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <button mat-stroked-button color=primary>Создать</button>
 </form>

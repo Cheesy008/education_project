@@ -20,6 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HttpQuizService } from 'src/service/httpService/http-quiz.service';
+import { QuizService } from 'src/service/quiz.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +45,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   exports: [LoadingComponent],
   providers: [{ provide: ProfileService, useClass: HttpProfileService },
   { provide: TokenService },
-  { provide: Quizservice }
+  { provide: QuizService, useClass: HttpQuizService },
   ],
   bootstrap: [AppComponent]
 })

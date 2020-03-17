@@ -1,6 +1,4 @@
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 
 from users.models import Profile
@@ -62,11 +60,13 @@ class QuizRoom(models.Model):
         Profile,
         related_name='quizrooms',
         on_delete=models.CASCADE,
+        default='Noname',
         verbose_name='Создатель',
     )
     user = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
+        default='Noname',
         verbose_name='Пользователь',
     )
     is_completed = models.BooleanField(
@@ -100,14 +100,4 @@ class QuizResponse(models.Model):
         return self.answer
 
 
-@receiver(post_save, sender=Quiz)
-def set_default_quiz(sender, instance, created, **kwargs):
-    quiz = Quiz.objects.filter(id=instance.id)
-    quiz.update(questions_count=instance.questions.filter(quiz=instance.pk).count())
-
-
-@receiver(post_save, sender=Question)
-def set_default(sender, instance, created, **kwargs):
-    quiz = Quiz.objects.filter(id=instance.quiz.id)
-    quiz.update(questions_count=instance.quiz.questions.filter(quiz=instance.quiz.pk).count())
 

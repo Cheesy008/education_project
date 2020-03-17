@@ -107,6 +107,8 @@ class QuizViewSet(viewsets.ModelViewSet):
     ordering = ('created',)
     filterset_class = QuizFilter
 
+    permission_classes = [IsAuthenticated,]
+
     def perform_create(self, serializer):
         req = serializer.context['request']
         serializer.save(owner=req.user)

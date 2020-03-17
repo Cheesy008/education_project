@@ -60,13 +60,11 @@ class QuizRoom(models.Model):
         Profile,
         related_name='quizrooms',
         on_delete=models.CASCADE,
-        default='Noname',
         verbose_name='Создатель',
     )
     user = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
-        default='Noname',
         verbose_name='Пользователь',
     )
     is_completed = models.BooleanField(

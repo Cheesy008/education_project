@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework import status
 
@@ -20,6 +20,7 @@ from main.models import (
     Question
 )
 from .filters import QuizFilter
+from .permissions import IsOwnerOrReadOnly, IsTeacher
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -35,7 +36,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class CurrentUserView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
         serializer = UserDetailSerializer(request.user)
@@ -107,7 +108,14 @@ class QuizViewSet(viewsets.ModelViewSet):
     ordering = ('created',)
     filterset_class = QuizFilter
 
-    permission_classes = [IsAuthenticated,]
+    def get_permissions(self):
+        permission_classes = []
+
+        if self.action == 'list':
+            permission_classes = [permissions.IsAuthenticated, IsTeacher]
+        elif self.action == 'retrieve':
+            permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+        return [permission() for permission in permission_classes]
 
     def perform_create(self, serializer):
         req = serializer.context['request']

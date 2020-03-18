@@ -13,7 +13,10 @@ import { Router } from '@angular/router';
 export class QuizCreateComponent implements OnInit {
   quiz: QuizCreate;
   public createForm: FormGroup;
-  constructor(private router: Router, private profileServie: ProfileService, private formBuilder: FormBuilder, private quizService: QuizService) {
+  constructor(private router: Router,
+    private profileServie: ProfileService,
+    private formBuilder: FormBuilder,
+    private quizService: QuizService) {
     this.quiz = new QuizCreate();
     this.createForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),

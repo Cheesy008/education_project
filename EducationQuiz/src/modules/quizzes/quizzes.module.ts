@@ -17,6 +17,7 @@ import { QuestionEditComponent } from './components/question-edit/question-edit.
 import { AnswerEditComponent } from './components/answer-edit/answer-edit.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
+import { QuizPassComponent } from './components/quiz-pass/quiz-pass.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MatCardModule } from '@angular/material/card';
     QuizCreateComponent,
     QuizEditComponent,
     QuestionEditComponent,
-    AnswerEditComponent
+    AnswerEditComponent,
+    QuizPassComponent
   ],
   imports: [
     CommonModule,

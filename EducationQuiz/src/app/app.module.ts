@@ -1,3 +1,5 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { QuizzesModule } from './../modules/quizzes/quizzes.module';
 import { TokenService } from './../service/token.service';
 import { LoadingComponent } from './components/loading/loading.component';
 import { HttpProfileService } from './../service/httpService/http-profile.service';
@@ -18,6 +20,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HttpQuizService } from 'src/service/httpService/http-quiz.service';
+import { QuizService } from 'src/service/quiz.service';
+import { MatPaginatedTabHeader } from '@angular/material/tabs/paginated-tab-header';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,11 +41,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
+    MatCheckboxModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatCardModule
   ],
   exports: [LoadingComponent],
-  providers: [{ provide: ProfileService, useClass: HttpProfileService }, { provide: TokenService }],
+  providers: [{ provide: ProfileService, useClass: HttpProfileService },
+  { provide: TokenService },
+  { provide: QuizService, useClass: HttpQuizService },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

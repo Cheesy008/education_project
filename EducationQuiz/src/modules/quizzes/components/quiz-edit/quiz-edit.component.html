@@ -1,0 +1,58 @@
+<form [formGroup]="editForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Название теста</mat-label>
+        <input matInput placeholder="Название" formControlName="title" required>
+        <mat-error *ngIf="editForm.controls['title'].invalid">
+            <p>Заполните это поле</p>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Описание теста</mat-label>
+        <textarea matInput placeholder="Описание" formControlName="description" required></textarea>
+        <mat-error *ngIf="editForm.controls['description'].invalid">
+            <p>Заполните это поле</p>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <h6>Вопрос №{{index+1}}</h6>
+    <form [formGroup]="questionForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Текст вопроса</mat-label>
+            <input matInput placeholder="Вопрос" formControlName="question_title" required>
+            <mat-error *ngIf="questionForm.controls['question_title']">
+                <p></p>
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <ul>
+            <li *ngFor="let item of questionForm.controls['answers']['controls']">
+                <form [formGroup]='item'>
+                    <input matInput placeholder="Index" formControlName="index" required hidden>
+                    <input matInput placeholder="Id" formControlName="id" required hidden>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ответ</mat-label>
+                        <input matInput placeholder="Ответ" formControlName="answer_text" required>
+                        <mat-error *ngIf="item.controls['answer_text'].invalid">
+                            <p>Заполните это поле</p>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-checkbox formControlName="is_correct" required>правильный</mat-checkbox>
+                </form>
+            </li>
+        </ul>
+        <button mat-stroked-button color=primary (click)="addAnswer()">Добавить ответ</button>
+    </form>
+    <div *ngIf="hasPrev">
+        <button mat-stroked-button color=primary (click)="previousQuestion()">Предыдущий вопрос</button>
+    </div>
+    <div *ngIf="hasNext">
+        <button mat-stroked-button color=primary (click)="nextQuestion()">Следующий вопрос</button>
+    </div>
+    <div *ngIf="addNext">
+        <button mat-stroked-button color=primary (click)="addQuestion()">Добавить вопрос</button>
+    </div>
+
+
+
+</form>

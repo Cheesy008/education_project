@@ -69,6 +69,7 @@ class QuestionSerializer(WritableNestedModelSerializer):
             'question_title',
             'answers',
         )
+        read_only_fields = ('quiz',)
 
 
 class QuizSerializer(WritableNestedModelSerializer):

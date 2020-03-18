@@ -23,6 +23,7 @@ export class HttpQuizService implements QuizService {
     return this.htttpClient.post<any>('api/quizzes/', body);
   }
   getQuiz(id: number) {
+    return this.htttpClient.get<any>('api/quizzes/' + id);
   }
   updateQuiz(quiz: QuizEdit) {
   }

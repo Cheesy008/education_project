@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { QuizEdit } from 'src/models/quiz.model';
 import { QuestionEdit } from 'src/models/question.model';
+import { Router, ActivatedRoute } from '@angular/router';
+import { QuizService } from 'src/service/quiz.service';
 
 @Component({
   selector: 'app-quiz-edit',
@@ -17,7 +19,7 @@ export class QuizEditComponent implements OnInit {
   hasNext = true;
   addNext = false;
   hasPrev = false;
-  constructor(formBuilder: FormBuilder) {
+  constructor(formBuilder: FormBuilder, private route: ActivatedRoute, private quizService: QuizService) {
     this.questionForm = new FormGroup({
       question_title: new FormControl('', [Validators.required]),
       answers: new FormArray([])
@@ -27,33 +29,61 @@ export class QuizEditComponent implements OnInit {
       description: new FormControl('', [Validators.required]),
       question: this.questionForm
     });
-    this.quiz.questions.push(new QuestionEdit());
-    this.setQuestion();
-
-
+    // this.quiz.questions.push(new QuestionEdit());
+    // this.setQuestion();
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const id = params.id;
+      this.quizService.getQuiz(id).subscribe((data) => {
+        this.quiz = data;
+        console.log(this.quiz);
+        let index = 0;
+        this.quiz.questions.forEach((e) => {
+          e.index = index;
+          index++;
+        });
+        this.setQuiz();
+        if (this.quiz.questions.length === 0) {
+          this.quiz.questions.push(new QuestionEdit());
+        }
+        this.setQuestion();
+      });
+    });
   }
   submit() {
 
   }
   nextQuestion() {
+    if (!this.editForm.valid) {
+      return;
+    }
     this.getQuestion();
     this.index++;
     this.setQuestion();
   }
   previousQuestion() {
+    if (!this.editForm.valid) {
+      return;
+    }
     this.getQuestion();
     this.index--;
     this.setQuestion();
   }
   addQuestion() {
+    if (!this.editForm.valid) {
+      return;
+    }
     this.getQuestion();
     this.quiz.questions.push(new QuestionEdit());
     this.index++;
 
     this.setQuestion();
+  }
+  setQuiz() {
+    this.editForm.controls.title.setValue(this.quiz.title);
+    this.editForm.controls.description.setValue(this.quiz.description);
   }
   getQuestion() {
     console.log('index:' + this.index);

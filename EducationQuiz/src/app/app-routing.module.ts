@@ -11,6 +11,7 @@ import { ProfileComponent } from 'src/modules/profile/components/profile/profile
 import { LoginComponent } from 'src/modules/profile/components/login/login.component';
 import { QuizzesListComponent } from 'src/modules/quizzes/components/quizzes-list/quizzes-list.component';
 import { QuizCreateComponent } from 'src/modules/quizzes/components/quiz-create/quiz-create.component';
+import { QuizDetailsComponent } from 'src/modules/quizzes/components/quiz-details/quiz-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'profile/logout', component: ProfileComponent },
   { path: 'quizzes', component: QuizzesListComponent },
   { path: 'quizzes/create', component: QuizCreateComponent, canActivate: [AuthActivatorService] },
-  { path: 'quizzes/edit', component: QuizEditComponent }
+  { path: 'quizzes/:id/edit', component: QuizEditComponent },
+  { path: 'quizzes/:id', component: QuizDetailsComponent }
 ];
 
 @NgModule({

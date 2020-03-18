@@ -1,18 +1,18 @@
 <mat-toolbar color="primary">
-    <a class="inline header" routerLink=""> Angular Quiz</a>
-    <a class="inline text" routerLink="profile">Профиль</a>
-    <a class="inline text" routerLink="tests">Тесты</a>
-    <a class="inline text" routerLink="quizzes/create">Создать тест</a>
-    <a class="inline text" routerLink="quizzes/edit">Редактировать тест</a>
-    <!-- <a class="inline text" routerLink="users">Пользователи</a> -->
-    <span class="spacer"></span>
-    <ng-container *ngIf="user; else elseTemplate">
-        <a class="inline right text" routerLink="profile">{{user.username}}</a>
-        <a class="inline right text" (click)="logout()">Выход</a>
-    </ng-container>
-    <ng-template #elseTemplate>
-        <a class="inline right text" routerLink="profile/login">Войти</a>
-        <a class="inline right text" routerLink="profile/register">Регистрация</a>
-    </ng-template>
+  <a class="inline header" routerLink=""> Angular Quiz</a>
+  <a class="inline text" routerLink="profile">Профиль</a>
+  <a class="inline text" routerLink="quizzes">Тесты</a>
+  <a class="inline text" routerLink="quizzes/create">Создать тест</a>
+  <a class="inline text" routerLink="quizzes/edit">Редактировать тест</a>
+  <!-- <a class="inline text" routerLink="users">Пользователи</a> -->
+  <span class="spacer"></span>
+  <ng-container *ngIf="user; else elseTemplate">
+    <a class="inline right text" routerLink="profile">{{user.username}}</a>
+    <a class="inline right text" (click)="logout()">Выход</a>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <a class="inline right text" routerLink="profile/login">Войти</a>
+    <a class="inline right text" routerLink="profile/register">Регистрация</a>
+  </ng-template>
 
 </mat-toolbar>

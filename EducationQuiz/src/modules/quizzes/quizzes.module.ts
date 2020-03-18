@@ -15,7 +15,8 @@ import { AppModule } from 'src/app/app.module';
 import { QuizEditComponent } from './components/quiz-edit/quiz-edit.component';
 import { QuestionEditComponent } from './components/question-edit/question-edit.component';
 import { AnswerEditComponent } from './components/answer-edit/answer-edit.component';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,8 @@ import { AnswerEditComponent } from './components/answer-edit/answer-edit.compon
     MatRadioModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatPaginatorModule,
+    MatCardModule,
     AppModule
   ],
   exports: [

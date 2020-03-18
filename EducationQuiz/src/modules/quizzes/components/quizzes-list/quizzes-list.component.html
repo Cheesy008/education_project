@@ -1,1 +1,6 @@
-<p>quizzes-list works!</p>
+<mat-paginator [length]="length" [pageSize]="pageSize" (page)="getPage($event)">
+
+</mat-paginator>
+<div *ngFor="let q of quizzes">
+  <app-quiz-info [quiz]="q"></app-quiz-info>
+</div>

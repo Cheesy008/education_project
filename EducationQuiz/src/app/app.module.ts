@@ -22,6 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpQuizService } from 'src/service/httpService/http-quiz.service';
 import { QuizService } from 'src/service/quiz.service';
+import { MatPaginatedTabHeader } from '@angular/material/tabs/paginated-tab-header';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +44,8 @@ import { QuizService } from 'src/service/quiz.service';
     MatCheckboxModule,
     HttpClientModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatCardModule
   ],
   exports: [LoadingComponent],
   providers: [{ provide: ProfileService, useClass: HttpProfileService },

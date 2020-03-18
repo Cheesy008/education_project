@@ -3,6 +3,7 @@ import { QuizCreate } from './../../../../models/quiz.model';
 import { ProfileService } from 'src/service/profile.service';
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from 'src/service/quiz.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quiz-create',
@@ -12,7 +13,7 @@ import { QuizService } from 'src/service/quiz.service';
 export class QuizCreateComponent implements OnInit {
   quiz: QuizCreate;
   public createForm: FormGroup;
-  constructor(private profileServie: ProfileService, private formBuilder: FormBuilder, private quizService: QuizService) {
+  constructor(private router: Router, private profileServie: ProfileService, private formBuilder: FormBuilder, private quizService: QuizService) {
     this.quiz = new QuizCreate();
     this.createForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
@@ -26,7 +27,7 @@ export class QuizCreateComponent implements OnInit {
     this.quiz.description = this.createForm.value.description;
     this.quiz.title = this.createForm.value.title;
     this.quizService.createQuiz(this.quiz).subscribe((data) => {
-      console.log(data);
+      this.router.navigate(['/quizzes/', data.id]);
     });
   }
 }

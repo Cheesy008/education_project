@@ -64,10 +64,12 @@ export class QuizEditComponent implements OnInit {
   submit() {
     this.getQuestion();
 
-    this.setQuestion();
-    console.log(this.quiz);
+    //console.log(this.quiz);
     this.quizService.updateQuiz(this.quiz).subscribe(data => {
-      //console.log(data);
+      console.log("1" + data);
+      this.quiz = data;
+      console.log("2" + this.quiz);
+      this.setQuestion();
     });
   }
   nextQuestion() {
@@ -108,12 +110,13 @@ export class QuizEditComponent implements OnInit {
     (this.questionForm.controls.answers as FormArray).controls.forEach(
       element => {
         const a = new AnswerEdit();
-        //console.log((element as FormGroup).controls.id.value);
+        console.log((element as FormGroup).controls.is_correct.value);
         a.index = (element as FormGroup).controls.index.value;
         a.id = (element as FormGroup).controls.id.value;
         a.answer_text = (element as FormGroup).controls.answer_text.value;
         a.is_correct =
-          (element as FormGroup).controls.is_correct.value === true
+          (element as FormGroup).controls.is_correct.value === true ||
+          (element as FormGroup).controls.is_correct.value === "checked"
             ? true
             : false;
         /* if (q.answers.find(x => (x.id != -1 && x.id === a.id) || x.index === a.index)) {

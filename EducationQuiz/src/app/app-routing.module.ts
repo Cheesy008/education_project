@@ -12,6 +12,7 @@ import { LoginComponent } from 'src/modules/profile/components/login/login.compo
 import { QuizzesListComponent } from 'src/modules/quizzes/components/quizzes-list/quizzes-list.component';
 import { QuizCreateComponent } from 'src/modules/quizzes/components/quiz-create/quiz-create.component';
 import { QuizDetailsComponent } from 'src/modules/quizzes/components/quiz-details/quiz-details.component';
+import { QuizPassComponent } from 'src/modules/quizzes/components/quiz-pass/quiz-pass.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'quizzes', component: QuizzesListComponent },
   { path: 'quizzes/create', component: QuizCreateComponent, canActivate: [AuthActivatorService] },
   { path: 'quizzes/:id/edit', component: QuizEditComponent },
+  { path: 'quizzes/:id/pass', component: QuizPassComponent },
   { path: 'quizzes/:id', component: QuizDetailsComponent }
 ];
 

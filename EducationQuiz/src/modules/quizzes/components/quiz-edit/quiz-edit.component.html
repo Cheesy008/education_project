@@ -27,7 +27,7 @@
     <br>
     <ul>
       <li *ngFor="let item of questionForm.controls['answers']['controls']">
-        <form [formGroup]='item'>
+        <div [formGroup]='item'>
           <input matInput placeholder="Index" formControlName="index" required hidden>
           <input matInput placeholder="Id" formControlName="id" required hidden>
           <mat-form-field appearance="outline">
@@ -38,7 +38,7 @@
             </mat-error>
           </mat-form-field>
           <mat-checkbox formControlName="is_correct" required>правильный</mat-checkbox>
-        </form>
+        </div>
       </li>
     </ul>
     <button mat-stroked-button color=primary (click)="addAnswer()">Добавить ответ</button>

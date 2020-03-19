@@ -43,15 +43,13 @@
     </ul>
     <button mat-stroked-button color=primary (click)="addAnswer()">Добавить ответ</button>
   </form>
-  <div *ngIf="hasPrev">
-    <button mat-stroked-button color=primary (click)="previousQuestion()">Предыдущий вопрос</button>
-  </div>
-  <div *ngIf="hasNext">
-    <button mat-stroked-button color=primary (click)="nextQuestion()">Следующий вопрос</button>
-  </div>
-  <div *ngIf="addNext">
-    <button mat-stroked-button color=primary (click)="addQuestion()">Добавить вопрос</button>
-  </div>
+  <button [hidden]="hasPrev" mat-stroked-button color=primary (click)="previousQuestion()" type="button">Предыдущий
+    вопрос</button>
+  <button [hidden]="hasNext" mat-stroked-button color=primary (click)="nextQuestion()" type="button">Следующий
+    вопрос</button>
+
+  <button [hidden]="addNext" mat-stroked-button color=primary (click)="addQuestion()" type="button">Добавить вопрос
+  </button>
   <button mat-stroked-button color=primary type="submit">Сохранить</button>
 
 

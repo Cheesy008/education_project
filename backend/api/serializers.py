@@ -28,13 +28,21 @@ class UsersSerializers(serializers.ModelSerializer):
             'role',
         )
 
+class QuizDetailSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Quiz
+        fields = ('id', 'title',)
+
 
 class UserDetailSerializer(serializers.ModelSerializer):
+    quizzes = QuizDetailSerializer(read_only=True, many=True)
+
     class Meta:
         model = get_user_model()
         fields = (
             'id',
             'username',
+            'quizzes',
             'first_name',
             'last_name',
             'email',

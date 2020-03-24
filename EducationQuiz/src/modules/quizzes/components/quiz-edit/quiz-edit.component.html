@@ -1,4 +1,5 @@
-<form [formGroup]="editForm" (submit)="submit()">
+
+<form class="center-container" [formGroup]="editForm" (submit)="submit()">
   <mat-form-field appearance="outline">
     <mat-label>Название теста</mat-label>
     <input matInput placeholder="Название" formControlName="title" required>
@@ -15,8 +16,8 @@
     </mat-error>
   </mat-form-field>
   <br>
-  <h6>Вопрос №{{index+1}}</h6>
-  <form [formGroup]="questionForm">
+  <p>Вопрос №{{index+1}}</p>
+  <div [formGroup]="questionForm">
     <mat-form-field appearance="outline">
       <mat-label>Текст вопроса</mat-label>
       <input matInput placeholder="Вопрос" formControlName="question_title" required>
@@ -25,31 +26,38 @@
       </mat-error>
     </mat-form-field>
     <br>
-    <ul>
-      <li *ngFor="let item of questionForm.controls['answers']['controls']">
-        <div [formGroup]='item'>
-          <input matInput placeholder="Index" formControlName="index" required hidden>
-          <input matInput placeholder="Id" formControlName="id" required hidden>
-          <mat-form-field appearance="outline">
-            <mat-label>Ответ</mat-label>
-            <input matInput placeholder="Ответ" formControlName="answer_text" required>
-            <mat-error *ngIf="item.controls['answer_text'].invalid">
-              <p>Заполните это поле</p>
-            </mat-error>
-          </mat-form-field>
-          <mat-checkbox formControlName="is_correct" required>правильный</mat-checkbox>
-        </div>
-      </li>
-    </ul>
-    <button mat-stroked-button color=primary (click)="addAnswer()">Добавить ответ</button>
-  </form>
-  <button [hidden]="hasPrev" mat-stroked-button color=primary (click)="previousQuestion()" type="button">Предыдущий
-    вопрос</button>
-  <button [hidden]="hasNext" mat-stroked-button color=primary (click)="nextQuestion()" type="button">Следующий
-    вопрос</button>
+    <div>
+      <div [formGroup]='item' *ngFor="let item of questionForm.controls['answers']['controls']">
+        <input matInput placeholder="Index" formControlName="index" required hidden>
+        <input matInput placeholder="Id" formControlName="id" required hidden>
+        <mat-form-field appearance="outline">
+          <mat-label>Ответ</mat-label>
+          <input matInput placeholder="Ответ" formControlName="answer_text" required>
+          <mat-error *ngIf="item.controls['answer_text'].invalid">
+            <p>Заполните это поле</p>
+          </mat-error>
+        </mat-form-field>
+        <mat-checkbox formControlName="is_correct" required>правильный</mat-checkbox>
 
-  <button [hidden]="addNext" mat-stroked-button color=primary (click)="addQuestion()" type="button">Добавить вопрос
-  </button>
+      </div>
+    </div>
+    <button mat-stroked-button color=primary (click)="addAnswer()">Добавить ответ</button>
+  </div>
+  <ng-container *ngIf="hasPrev">
+    <button mat-stroked-button color=primary (click)="previousQuestion()" type="button">Предыдущий
+      вопрос</button>
+  </ng-container>
+
+  <ng-container *ngIf="hasNext">
+    <button mat-stroked-button color=primary (click)="nextQuestion()" type="button">Следующий
+      вопрос</button>
+  </ng-container>
+
+  <ng-container *ngIf="addNext">
+    <button mat-stroked-button color=primary (click)="addQuestion()" type="button">Добавить вопрос
+    </button>
+  </ng-container>
+
   <button mat-stroked-button color=primary type="submit">Сохранить</button>
 
 

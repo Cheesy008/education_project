@@ -1,4 +1,4 @@
-.parent {
+/* .parent {
   display: grid;
   grid-template-columns: 0.3fr 1fr 0.3fr;
   grid-template-rows: 0.3fr 0.75fr;
@@ -11,4 +11,14 @@
 }
 .div2 {
   grid-area: 2 / 2 / 6 / 3;
+} */
+
+.body {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.center-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

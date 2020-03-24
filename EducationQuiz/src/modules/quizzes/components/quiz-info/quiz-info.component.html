@@ -1,4 +1,5 @@
 <mat-card class="example-card">
+
   <mat-card-header>
     <mat-card-title>{{quiz.title}}</mat-card-title>
     <mat-card-subtitle>Автор {{quiz.owner.firstname+" "+quiz.owner.secondname}}</mat-card-subtitle>
@@ -14,4 +15,5 @@
     <button [hidden]="canEdit" mat-button (click)="edit()">Редактировать</button>
 
   </mat-card-actions>
+
 </mat-card>

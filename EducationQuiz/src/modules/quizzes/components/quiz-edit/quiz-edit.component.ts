@@ -146,6 +146,7 @@ export class QuizEditComponent implements OnInit {
       this.hasNext = true;
       this.addNext = false;
     }
+    console.log(this.hasPrev);
     const question = this.quiz.questions[this.index];
     this.questionForm.controls.question_title.setValue(question.question_title);
     const answersForm = this.questionForm.controls.answers as FormArray;

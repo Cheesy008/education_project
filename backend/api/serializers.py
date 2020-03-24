@@ -28,10 +28,11 @@ class UsersSerializers(serializers.ModelSerializer):
             'role',
         )
 
+
 class QuizDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Quiz
-        fields = ('id', 'title',)
+        fields = ('id', 'title', 'description')
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
@@ -103,6 +104,13 @@ class QuizSerializer(WritableNestedModelSerializer):
     def get_owner_id(self, obj):
         owner_id = self.context['request'].user.id
         return owner_id
+
+    def get_fields(self):
+        fields = super().get_fields()
+        user = self.context['request'].user
+        if user.is_anonymous or user.role == user.ROLE_CHOICES[0][1]:
+            fields.pop('questions', None)
+        return fields
 
 
 

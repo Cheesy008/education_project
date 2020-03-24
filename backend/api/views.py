@@ -20,7 +20,7 @@ from main.models import (
     Question
 )
 from .filters import QuizFilter
-from .permissions import IsOwnerOrReadOnly, IsTeacher
+from .permissions import IsOwnerOrReadOnly
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -111,12 +111,12 @@ class QuizViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         permission_classes = []
 
-        if self.action == 'list':
-            permission_classes = [permissions.IsAuthenticated, IsTeacher]
-        elif self.action == 'retrieve':
-            permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+        if self.action in ['update', 'retrieve', 'partial_update', 'destroy']:
+            permission_classes = [IsOwnerOrReadOnly]
         return [permission() for permission in permission_classes]
 
     def perform_create(self, serializer):
         req = serializer.context['request']
         serializer.save(owner=req.user)
+
+

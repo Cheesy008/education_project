@@ -6,6 +6,7 @@ from main.models import Quiz
 
 
 class QuizFilter(FilterSet):
+    id = filters.CharFilter(field_name='id', lookup_expr='exact')
     title = filters.CharFilter(field_name='title', lookup_expr='icontains')
     username = filters.CharFilter(field_name='owner__username', lookup_expr='icontains')
 

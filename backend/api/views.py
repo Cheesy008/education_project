@@ -120,3 +120,9 @@ class QuizViewSet(viewsets.ModelViewSet):
         serializer.save(owner=req.user)
 
 
+class QuizPassingViewSet(viewsets.ModelViewSet):
+    queryset = Quiz.objects.all()
+    serializer_class = QuizSerializer
+
+
+

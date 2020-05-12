@@ -14,7 +14,7 @@ class Quiz(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
     questions_count = models.PositiveSmallIntegerField(default=0, verbose_name='Количество вопросов', null=True, blank=True)
     description = models.TextField(verbose_name='Описание теста')
-    test_completed = models.BooleanField(default=False, verbose_name='Завершено создание теста')
+    test_created = models.BooleanField(default=False, verbose_name='Завершено создание теста')
     created = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата создания')
 
     def __str__(self):
@@ -43,7 +43,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question,related_name='answers', on_delete=models.CASCADE, verbose_name='Текст вопроса')
+    question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE, verbose_name='Текст вопроса')
     answer_text = models.TextField(verbose_name='Текст ответа')
     is_correct = models.BooleanField(default=False, verbose_name='Правильный')
 
@@ -58,30 +58,43 @@ class Answer(models.Model):
 class QuizRoom(models.Model):
     owner = models.ForeignKey(
         Profile,
-        related_name='quizrooms',
+        related_name='owners',
         on_delete=models.CASCADE,
         verbose_name='Создатель',
     )
     user = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
+        related_name='users',
         verbose_name='Пользователь',
     )
     is_completed = models.BooleanField(
         default=False,
         verbose_name='Завершён',
     )
-    quiz_response = models.ForeignKey(
-        'QuizResponse',
-        on_delete=models.PROTECT,
+    quiz = models.ForeignKey(
+        Quiz,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='quizzes',
+        verbose_name='Тест',
     )
+
+    def __str__(self):
+        return f"Комната - {self.quiz.title}"
+
+    class Meta:
+        verbose_name = 'Комната'
+        verbose_name_plural = 'Комнаты'
 
 
 class QuizResponse(models.Model):
-    user = models.ForeignKey(
-        Profile,
-        on_delete=models.PROTECT,
-        verbose_name='Пользователь',
+    quiz_room = models.ForeignKey(
+        QuizRoom,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='quiz_responses',
+        verbose_name='Комната',
     )
     answer = models.ForeignKey(
         Answer,
@@ -96,6 +109,10 @@ class QuizResponse(models.Model):
 
     def __str__(self):
         return self.answer
+
+    class Meta:
+        verbose_name = 'Ответ пользователя'
+        verbose_name_plural = 'Ответы пользователя'
 
 
 
